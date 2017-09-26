@@ -6,7 +6,7 @@ import vlc
 import constants
 
 
-class HorrorPlay(object):
+class HorrorsEar(object):
     def __init__(self):
         self.background_instance = vlc.Instance()
         self.background_tracks = self.background_instance.media_list_new()
