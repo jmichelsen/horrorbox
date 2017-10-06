@@ -12,7 +12,6 @@ class HorrorsEar(object):
         self.background_tracks = self.background_instance.media_list_new()
         self.background_player = self.background_instance.media_list_player_new()
         self.scare_player = vlc.MediaPlayer
-        self.scare_tracks = constants.SCARE_TRACKS
 
     def begin(self):
         [self.background_tracks.add_media(self.background_instance.media_new(track))
@@ -22,9 +21,10 @@ class HorrorsEar(object):
         self.background_player.play()
 
     def scare(self):
-        track = random.choice(self.scare_tracks)
+        track = random.choice(constants.SCARE_TRACKS)
         player = self.scare_player(track)
         player.play()
+        time.sleep(1)
         while player.is_playing():
             time.sleep(5)
             continue
@@ -34,4 +34,3 @@ class HorrorsEar(object):
         self.background_player.stop()
         self.background_instance.release()
         self.background_player.release()
-
