@@ -1,7 +1,10 @@
+import logging
 import time
 
 import cv2
 import imutils
+
+log = logging.getLogger(__file__)
 
 
 class FearsEye(object):
@@ -9,7 +12,7 @@ class FearsEye(object):
         self.camera = cv2.VideoCapture(-1)
         self.min_area = 500
         self.first_frame = None
-        self.action_method = None
+        self.action_methods = list()
         time.sleep(.2)
 
     def begin(self):
@@ -17,7 +20,7 @@ class FearsEye(object):
             try:
                 success, frame = self.camera.read()
                 if not success:
-                    print('could not read camera')
+                    log.info('could not read camera')
                     break
 
                 gray_frame = self._get_generic_frame(frame)
@@ -36,14 +39,13 @@ class FearsEye(object):
                 for contour in contours:
                     if cv2.contourArea(contour) < self.min_area:
                         continue
-                    if self.action_method:
-                        print('action firing')
-                        self.action_method()
-                        time.sleep(30)
+                    for action in self.action_methods:
+                        action()
+                    time.sleep(15)
             except KeyboardInterrupt:
                 break
             except Exception as e:
-                print(e.message)
+                log.info(e.message)
                 break
 
     def end(self):

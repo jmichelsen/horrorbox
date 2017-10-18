@@ -1,9 +1,12 @@
+import logging
 import random
 import time
 
 import vlc
 
 import constants
+
+log = logging.getLogger(__file__)
 
 
 class HorrorsEar(object):
@@ -22,11 +25,11 @@ class HorrorsEar(object):
 
     def scare(self):
         track = random.choice(constants.SCARE_TRACKS)
+        log.info('playing scare: {}'.format(track))
         player = self.scare_player(track)
         player.play()
         time.sleep(1)
         while player.is_playing():
-            time.sleep(5)
             continue
         player.release()
 
