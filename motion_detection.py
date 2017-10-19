@@ -39,7 +39,7 @@ class FearsEye(object):
                     if self.action_method:
                         print('action firing')
                         self.action_method()
-                        time.sleep(30)
+                    break
             except KeyboardInterrupt:
                 break
             except Exception as e:
