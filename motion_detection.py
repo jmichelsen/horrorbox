@@ -41,7 +41,7 @@ class FearsEye(object):
                         continue
                     for action in self.action_methods:
                         action()
-                    time.sleep(15)
+                    break
             except KeyboardInterrupt:
                 break
             except Exception as e:
